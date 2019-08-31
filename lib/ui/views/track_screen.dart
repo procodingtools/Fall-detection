@@ -5,10 +5,11 @@ import 'package:location/location.dart';
 import 'package:path_provider_ex/path_provider_ex.dart';
 import 'package:permission/permission.dart';
 import 'package:date_format/date_format.dart';
-
+import 'package:firebase_storage/firebase_storage.dart';
 
 class TrackScreen extends StatefulWidget {
   createState() => _TrackState();
+  static String userId;
 }
 
 class _TrackState extends State<TrackScreen> {
@@ -19,6 +20,7 @@ class _TrackState extends State<TrackScreen> {
   IOSink _open;
   String _path = "";
   double _lat, _lng;
+  String _fileName;
 
   @override
   void initState() {
@@ -59,6 +61,7 @@ class _TrackState extends State<TrackScreen> {
                           },
                           child: Text("add"))
                       : TextField(
+                    autofocus: true,
                           decoration: InputDecoration(
                             labelText: "Person name",
                           ),
@@ -88,12 +91,6 @@ class _TrackState extends State<TrackScreen> {
       ),
     );
   }
-
-
-
-
-
-
 
 
   void _requestLocating() {
@@ -135,7 +132,7 @@ class _TrackState extends State<TrackScreen> {
       final date = DateTime.now();
 
       //prepare file location (path + datetime + .txt)
-      _file = File("$_path${formatDate(date, [
+      _fileName = "${formatDate(date, [
         yy,
         '-',
         mm,
@@ -147,7 +144,8 @@ class _TrackState extends State<TrackScreen> {
         nn,
         ":",
         ss
-      ])}.txt");
+      ])}.txt";
+      _file = File("$_path/$_fileName");
 
       //creating file in storage
       await _file.create(recursive: true);
@@ -180,6 +178,8 @@ class _TrackState extends State<TrackScreen> {
       //closing file.
       _open.flush();
       _open.close();
+
+      _storeFileToFirebase();
     }
   }
 
@@ -239,5 +239,11 @@ class _TrackState extends State<TrackScreen> {
       }
 
     });
+  }
+
+  void _storeFileToFirebase() {
+    StorageReference storageRef =
+    FirebaseStorage.instance.ref().child("track/${TrackScreen.userId}/$_fileName");
+    storageRef.putFile(_file);
   }
 }
