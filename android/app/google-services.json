@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "212152091946",
+    "firebase_url": "https://falldetectapp-c666e.firebaseio.com",
+    "project_id": "falldetectapp-c666e",
+    "storage_bucket": "falldetectapp-c666e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212152091946:android:744c63cf9754b6c6",
+        "android_client_info": {
+          "package_name": "com.huextrat.thegorgeouslogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212152091946-o6t5v7krcc3aji3u1sm56c64splhstov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRE2suUqTwbgNOEJMPpK-b8jOmrguLSfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212152091946-o6t5v7krcc3aji3u1sm56c64splhstov.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,57 @@
+name: the_gorgeous_login
+description: Gorgeous Login UI
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  location: ^2.3.5
+  date_format: ^1.0.6
+  path_provider_ex: ^1.0.1
+  permission: ^0.1.2
+  flutter_spinkit: "^4.0.0"
+  cupertino_icons: ^0.1.2
+  firebase_core: ^0.4.0+8
+  cloud_firestore: ^0.12.9
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  font_awesome_flutter: ^8.5.0
+  provider: ^3.0.0+1
+  intl: ^0.15.8
+  get_it: ^1.0.3+2
+  flashbar: ^1.0.0
+  shared_preferences: ^0.5.3+4
+  url_launcher: ^5.1.2
+  flutter_email_sender: ^2.0.3
+  rxdart: ^0.22.1+1
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/login_logo.png
+    - assets/welcome_page.png
+    - assets/tug_test.jpg
+
+  fonts:
+    - family: WorkSansSemiBold
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-SemiBold.ttf
+
+    - family: WorkSansBold
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Bold.ttf
+
+    - family: WorkSansMedium
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Medium.ttf
