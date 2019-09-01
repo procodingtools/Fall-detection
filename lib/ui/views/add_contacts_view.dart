@@ -14,41 +14,43 @@ class AddContactsView extends StatefulWidget {
 }
 
 class _AddContactsViewState extends State<AddContactsView> {
-  List<TextEditingController> _contactsNames = [];
+  //List<TextEditingController> _contactsNames = [];
 
-  List<TextEditingController> _contactsEmails = [];
+  //List<TextEditingController> _contactsPhones = [];
 
-  List<Contact> mapControllers() {
+  List<Contact> _contacts = List();
+
+  /*List<Contact> mapControllers() {
     List<Contact> contacts = [];
     _contactsNames.asMap().forEach((index, nameController) {
       if (nameController.text.length < 1) return;
       Contact contact = Contact(
         name: nameController.text,
-        email: _contactsEmails[index].text,
+        //phone: _contactsEmails[index].text,
       );
       contacts.add(contact);
     });
     return contacts;
-  }
+  }*/
 
-  initState() {
+  /*initState() {
     for (int i = 0; i <= 4; i++) {
       _contactsNames.add(TextEditingController());
-      _contactsEmails.add(TextEditingController());
+      _contactsPhones.add(TextEditingController());
     }
     super.initState();
-  }
+  }*/
 
-  _buildContact(number, index) {
+  /*_buildContact(number, index) {
     return Column(
       children: <Widget>[
         Input(
           hintText: '$number Person Name',
-          controller: _contactsNames[index],
+          //controller: _contactsNames[index],
         ),
         Input(
           hintText: '$number Person Email Address',
-          controller: _contactsEmails[index],
+          controller: _contactsPhones[index],
           keyboardType: TextInputType.emailAddress,
           bottom: false,
         ),
@@ -59,11 +61,35 @@ class _AddContactsViewState extends State<AddContactsView> {
           label: 'Text Email for test',
           onPressed: () async {
             final url =
-                'mailto:${_contactsEmails[index].text}?subject=Test Message';
+                'mailto:${_contactsPhones[index].text}?subject=Test Message';
             if (await canLaunch(url)) {
               await launch(url);
             }
           },
+        ),
+      ],
+    );
+  }*/
+
+
+  Widget _buildContact(Contact contact) {
+    return Column(
+      children: <Widget>[
+        Input(
+          hintText: 'Person Name',
+          //controller: _contactsNames[index],
+          onChanged: (txt) =>contact.name = txt,
+          autoFocus: true,
+        ),
+        Input(
+          hintText: 'Person Phone Number',
+          //controller: _contactsPhones[index],
+          onChanged: (txt) => contact.phone = txt,
+          keyboardType: TextInputType.phone,
+          bottom: false,
+        ),
+        SizedBox(
+          height: 10,
         ),
       ],
     );
@@ -76,34 +102,45 @@ class _AddContactsViewState extends State<AddContactsView> {
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 10,
-              ),
-              _buildContact('First', 0),
-              _buildContact('Second', 1),
-              _buildContact('Third', 2),
-              _buildContact('Fourth', 3),
-              _buildContact('Fifth', 4),
-              SizedBox(
-                height: 30,
-              ),
-              model.busy
-                  ? CircularProgressIndicator()
-                  : Button(
-                      label: 'Save',
-                      onPressed: () async {
-                        model.add(mapControllers());
-                        Navigator.pop(context);
-                      },
-                    ),
-              SizedBox(
-                height: 30,
-              ),
-            ],
-          ),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 10,
+            ),
+            /*_buildContact('First', 0),
+            _buildContact('Second', 1),
+            _buildContact('Third', 2),
+            _buildContact('Fourth', 3),
+            _buildContact('Fifth', 4),*/
+            Expanded(
+              child: ListView.builder(itemBuilder: (context, index) {
+                return _buildContact(_contacts[index]);
+              }, itemCount: _contacts.length, shrinkWrap: true,),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Button(
+                label: 'Add', onPressed: () {
+              FocusScope.of(context).unfocus();
+              setState(() => _contacts.add(Contact()));
+            }),
+            SizedBox(
+              height: 30,
+            ),
+            model.busy
+                ? CircularProgressIndicator()
+                : Button(
+              label: 'Save',
+              onPressed: () async {
+                model.add(/*mapControllers()*/ _contacts);
+                Navigator.pop(context);
+              },
+            ),
+            SizedBox(
+              height: 30,
+            ),
+          ],
         ),
       ),
     );
@@ -115,7 +152,7 @@ class _AddContactsViewState extends State<AddContactsView> {
       model: AddContactViewModel(Provider.of<ContactsService>(context)),
       builder:
           (BuildContext context, AddContactViewModel model, Widget child) =>
-              _buildBody(model),
+          _buildBody(model),
     );
   }
 }

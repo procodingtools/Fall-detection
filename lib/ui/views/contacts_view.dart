@@ -9,7 +9,7 @@ class ContactsView extends StatelessWidget {
   Widget _buildListItem(DocumentSnapshot item) {
     return ListTile(
       title: Text(item['name']),
-      subtitle: Text(item['email']),
+      subtitle: Text(item['phone']),
     );
   }
 

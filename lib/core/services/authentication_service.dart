@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:the_gorgeous_login/core/models/user.dart';
 import 'package:the_gorgeous_login/firebase/firebase.dart';
 import 'package:rxdart/rxdart.dart' show BehaviorSubject;
-import 'package:the_gorgeous_login/ui/views/track_screen.dart';
 
 class AuthenticationService {
   final Firebase firebase;
@@ -23,7 +22,6 @@ class AuthenticationService {
       //Check Password
       if (password == doc.data["passkey"]) {
         userController.add(user);
-        TrackScreen.userId = email;
       }
     }
     return doc.exists;

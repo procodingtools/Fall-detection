@@ -12,6 +12,8 @@ class Input extends StatelessWidget {
   final bool enabled;
   final bool readOnly;
   final Function onTap;
+  final Function(String text) onChanged;
+  bool autoFocus;
   Input(
       {this.controller,
       this.hintText,
@@ -23,7 +25,8 @@ class Input extends StatelessWidget {
       this.textCapitalization = TextCapitalization.none,
       this.enabled = true,
       this.readOnly = false,
-      this.onTap});
+        this.autoFocus = false,
+      this.onTap, this.onChanged});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -36,6 +39,8 @@ class Input extends StatelessWidget {
             controller: controller,
             readOnly: readOnly,
             onTap: onTap,
+            onChanged: onChanged,
+            autofocus: autoFocus,
             enabled: enabled,
             obscureText: obscureText,
             keyboardType: keyboardType,

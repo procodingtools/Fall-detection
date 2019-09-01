@@ -1,14 +1,14 @@
 class Contact {
-  final String name;
-  final String email;
+  String name;
+  String phone;
 
-  Contact({this.name, this.email});
+  Contact({this.name, this.phone});
 
   Contact.fromMap(Map data)
       : name = data['name'],
-        email = data['email'];
+        phone = data['phone'];
 
-  Map<String, String> toMap() {
-    return {'name': name, 'email': email};
+  Map<String, dynamic> toMap() {
+    return {'name': name, 'phone': phone};
   }
 }
